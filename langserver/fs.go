@@ -239,9 +239,7 @@ func (a *AtomicFS) Bind(old string, newfs ctxvfs.FileSystem, new string, mode ct
 
 	fs1 := a.v.Load().(ctxvfs.NameSpace)
 	fs2 := make(ctxvfs.NameSpace)
-	for k, v := range fs1 {
-		fs2[k] = v
-	}
+	copy(fs2, fs1)
 	fs2.Bind(old, newfs, new, mode)
 	a.v.Store(fs2)
 }

@@ -354,9 +354,7 @@ func (r *Registry) Register(c Collector) error {
 	for hash := range newDescIDs {
 		r.descIDs[hash] = struct{}{}
 	}
-	for name, dimHash := range newDimHashesByName {
-		r.dimHashesByName[name] = dimHash
-	}
+	copy(r.dimHashesByName, newDimHashesByName)
 	return nil
 }
 

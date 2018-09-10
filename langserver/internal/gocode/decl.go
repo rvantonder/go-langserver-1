@@ -369,9 +369,7 @@ func (other *decl) deep_copy() *decl {
 	d.value = other.value
 	d.value_index = other.value_index
 	d.children = make(map[string]*decl, len(other.children))
-	for key, value := range other.children {
-		d.children[key] = value
-	}
+	copy(d.children, other.children)
 	if other.embedded != nil {
 		d.embedded = make([]ast.Expr, len(other.embedded))
 		copy(d.embedded, other.embedded)
@@ -1252,9 +1250,7 @@ func ast_decl_names(d ast.Decl) []*ast.Ident {
 		case token.CONST:
 			c := t.Specs[0].(*ast.ValueSpec)
 			names = make([]*ast.Ident, len(c.Names))
-			for i, name := range c.Names {
-				names[i] = name
-			}
+			copy(names, c.Names)
 		case token.TYPE:
 			t := t.Specs[0].(*ast.TypeSpec)
 			names = make([]*ast.Ident, 1)
@@ -1262,9 +1258,7 @@ func ast_decl_names(d ast.Decl) []*ast.Ident {
 		case token.VAR:
 			v := t.Specs[0].(*ast.ValueSpec)
 			names = make([]*ast.Ident, len(v.Names))
-			for i, name := range v.Names {
-				names[i] = name
-			}
+			copy(names, v.Names)
 		}
 	case *ast.FuncDecl:
 		names = make([]*ast.Ident, 1)

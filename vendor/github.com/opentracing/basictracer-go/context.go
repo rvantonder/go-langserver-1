@@ -32,9 +32,7 @@ func (c SpanContext) WithBaggageItem(key, val string) SpanContext {
 		newBaggage = map[string]string{key: val}
 	} else {
 		newBaggage = make(map[string]string, len(c.Baggage)+1)
-		for k, v := range c.Baggage {
-			newBaggage[k] = v
-		}
+		copy(newBaggage, c.Baggage)
 		newBaggage[key] = val
 	}
 	// Use positional parameters so the compiler will help catch new fields.

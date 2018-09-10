@@ -458,15 +458,11 @@ func collect_type_alias_methods(d *decl) map[string]*decl {
 
 	// add own methods
 	m := map[string]*decl{}
-	for k, v := range d.children {
-		m[k] = v
-	}
+	copy(m, d.children)
 
 	// recurse into more aliases
 	dd := type_to_decl(d.typ, d.scope)
-	for k, v := range collect_type_alias_methods(dd) {
-		m[k] = v
-	}
+	copy(m, collect_type_alias_methods(dd))
 
 	return m
 }

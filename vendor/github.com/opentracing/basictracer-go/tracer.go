@@ -183,9 +183,7 @@ ReferencesLoop:
 
 			if l := len(refCtx.Baggage); l > 0 {
 				sp.raw.Context.Baggage = make(map[string]string, l)
-				for k, v := range refCtx.Baggage {
-					sp.raw.Context.Baggage[k] = v
-				}
+				copy(sp.raw.Context.Baggage, refCtx.Baggage)
 			}
 			break ReferencesLoop
 		}
